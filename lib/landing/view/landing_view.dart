@@ -4,8 +4,7 @@ import 'package:stoktakip/sales_mode/view/sales_mode_view.dart';
 
 import '../../inventory/viewmodel/product_model.dart';
 import '../../other/view/bar_view.dart';
-import '../../scan_mode/view/scan_mode.dart';
-import '../../other/view/foo_view.dart';
+import '../../product_details/view/product_details_view.dart';
 import '../../shared/enumLabel/label_names_enum.dart';
 
 class LandingView extends StatefulWidget {
