@@ -74,9 +74,9 @@ class _LandingView extends State<LandingView> {
           product: _product,
         );
       case 3:
-        const Bar();
+        return const Bar();
     }
-    return const LandingView();
+    return const Bar();
   }
 
   // final List<Widget> _children = const [

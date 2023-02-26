@@ -4,7 +4,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:stoktakip/inventory/viewmodel/product_model.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
 
-import '../../shared/views/product_details_view.dart';
+import '../../shared/views/product_details_shared.dart';
 
 class ProductView extends StatefulWidget {
   Product? product;
@@ -16,6 +16,13 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductView extends State<ProductView> {
+  Product productPlaceholder = Product(
+      imageUrl: '',
+      numOfProducts: 0,
+      productCategory: '',
+      productName: '',
+      productPrice: 0.0);
+
   @override
   Widget build(BuildContext context) {
     // scanProductBarcode();
@@ -23,7 +30,7 @@ class _ProductView extends State<ProductView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ProductDetailsView(product: widget.product),
+          ProductDetails(product: widget.product ?? productPlaceholder),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(

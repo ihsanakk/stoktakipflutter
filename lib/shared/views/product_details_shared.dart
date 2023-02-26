@@ -3,15 +3,15 @@ import 'package:stoktakip/inventory/viewmodel/product_model.dart';
 
 import '../enumLabel/label_names_enum.dart';
 
-class ProductDetailsView extends StatefulWidget {
+class ProductDetails extends StatefulWidget {
   Product? product;
-  ProductDetailsView({Key? key, this.product}) : super(key: key);
+  ProductDetails({Key? key, this.product}) : super(key: key);
 
   @override
-  State<ProductDetailsView> createState() => _ProductDetailsState();
+  State<ProductDetails> createState() => _ProductDetailsState();
 }
 
-class _ProductDetailsState extends State<ProductDetailsView> {
+class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(

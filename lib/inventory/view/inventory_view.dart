@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stoktakip/shared/views/product_details_view.dart';
+import 'package:stoktakip/shared/views/product_details_shared.dart';
 
 import '../../shared/views/product_card.dart';
 import '../viewmodel/product_model.dart';
