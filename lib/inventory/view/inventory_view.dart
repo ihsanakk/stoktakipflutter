@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stoktakip/inventory/view/product_card.dart';
 
+import '../../shared/views/product_card.dart';
 import '../viewmodel/product_model.dart';
 
 class InventoryView extends StatelessWidget {
@@ -17,7 +17,8 @@ class InventoryView extends StatelessWidget {
             itemCount: products.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
-                child: ProductCard(
+                child: ProductCardView(
+                    isSaleMode: false,
                     product: Product(
                         imageUrl: 'https://via.placeholder.com/150',
                         numOfProducts: 23,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
 
-import '../../inventory/view/product_card.dart';
 import '../../inventory/viewmodel/product_model.dart';
 
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+
+import '../../shared/views/product_card.dart';
 
 class SalesMode extends StatefulWidget {
   const SalesMode({super.key});
@@ -14,42 +15,6 @@ class SalesMode extends StatefulWidget {
 }
 
 class _SalesMode extends State<SalesMode> {
-  // load from the state if !null
-  // final List<String> products = const [];
-  // List<Map<String, dynamic>> products = [
-  //   {
-  //     'name': 'Product 1',
-  //     'quantity': 1,
-  //     'barcode': '1234567890',
-  //   },
-  //   {
-  //     'name': 'Product 2',
-  //     'quantity': 2,
-  //     'barcode': '2345678901',
-  //   },
-  //   {
-  //     'name': 'Product 3',
-  //     'quantity': 1,
-  //     'barcode': '3456789012',
-  //   },
-  // ];
-
-  // void incrementQuantity(int index) {
-  //   setState(() {
-  //     products[index]['quantity']++;
-  //   });
-  // }
-
-  // void decrementQuantity(int index) {
-  //   setState(() {
-  //     if (products[index]['quantity'] > 1) {
-  //       products[index]['quantity']--;
-  //     } else {
-  //       products.removeAt(index);
-  //     }
-  //   });
-  // }
-
   List<String> stringList = [
     'eCwTkMVjJg',
     'dXkLnPqRzSdRqu',
@@ -101,54 +66,14 @@ class _SalesMode extends State<SalesMode> {
                     color: Colors.red,
                     child: const Icon(Icons.delete, color: Colors.white),
                   ),
-                  child: Card(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        leading: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  'https://via.placeholder.com/150'),
-                            ),
-                          ),
-                        ),
-                        visualDensity:
-                            const VisualDensity(vertical: 3), // to expand
-                        title: Text(stringList[index], maxLines: 2),
-                        subtitle: const Text("Spec"),
-                        trailing: Column(
-                          children: [
-                            Text(
-                              stringList[index].toUpperCase(),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(width: 5),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.remove),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.add),
-                                ),
-                                const SizedBox(width: 3),
-                                const Text("1")
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ));
+                  child: ProductCardView(
+                      isSaleMode: true,
+                      product: Product(
+                          imageUrl: 'https://via.placeholder.com/150',
+                          numOfProducts: 23,
+                          productCategory: 'it',
+                          productName: stringList[index],
+                          productPrice: 1234.23)));
             },
           ),
         ),

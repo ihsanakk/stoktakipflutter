@@ -3,7 +3,7 @@ import 'package:stoktakip/inventory/view/inventory_view.dart';
 import 'package:stoktakip/sales_mode/view/sales_mode_view.dart';
 
 import '../../other/view/bar_view.dart';
-import '../../other/view/baz_view.dart';
+import '../../scan_mode/view/scan_mode.dart';
 import '../../other/view/foo_view.dart';
 import '../../shared/enumLabel/label_names_enum.dart';
 
@@ -58,7 +58,7 @@ class _LandingView extends State<LandingView> {
   final List<Widget> _children = const [
     InventoryView(),
     SalesMode(),
-    Baz(),
+    ProductView(),
     Bar(),
   ];
 }

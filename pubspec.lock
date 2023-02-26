@@ -63,7 +63,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_barcode_scanner:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_barcode_scanner
       sha256: a4ba37daf9933f451a5e812c753ddd045d6354e4a3280342d895b07fecaab3fa
@@ -92,7 +92,7 @@ packages:
     source: sdk
     version: "0.0.0"
   get:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: get
       sha256: "2ba20a47c8f1f233bed775ba2dd0d3ac97b4cf32fc17731b3dfc672b06b0e92a"
