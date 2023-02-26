@@ -7,20 +7,15 @@ import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
 import '../../shared/views/product_details_view.dart';
 
 class ProductView extends StatefulWidget {
-  const ProductView({Key? key}) : super(key: key);
+  Product? product;
+
+  ProductView({Key? key, this.product}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ProductView();
 }
 
 class _ProductView extends State<ProductView> {
-  Product product = Product(
-      imageUrl: 'xx',
-      numOfProducts: 12,
-      productCategory: 'Category',
-      productName: 'Product Name',
-      productPrice: 50.25);
-
   @override
   Widget build(BuildContext context) {
     // scanProductBarcode();
@@ -28,7 +23,7 @@ class _ProductView extends State<ProductView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ProductDetailsView(product: product),
+          ProductDetailsView(product: widget.product),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(

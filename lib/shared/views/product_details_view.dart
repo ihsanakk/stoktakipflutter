@@ -4,8 +4,8 @@ import 'package:stoktakip/inventory/viewmodel/product_model.dart';
 import '../enumLabel/label_names_enum.dart';
 
 class ProductDetailsView extends StatefulWidget {
-  final Product product;
-  const ProductDetailsView({Key? key, required this.product}) : super(key: key);
+  Product? product;
+  ProductDetailsView({Key? key, this.product}) : super(key: key);
 
   @override
   State<ProductDetailsView> createState() => _ProductDetailsState();
@@ -34,7 +34,8 @@ class _ProductDetailsState extends State<ProductDetailsView> {
                 // TODO:
               });
             },
-            controller: TextEditingController(text: widget.product.productName),
+            controller:
+                TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
           TextField(
@@ -46,7 +47,8 @@ class _ProductDetailsState extends State<ProductDetailsView> {
                 // TODO:
               });
             },
-            controller: TextEditingController(text: widget.product.productName),
+            controller:
+                TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
           TextField(
@@ -58,7 +60,8 @@ class _ProductDetailsState extends State<ProductDetailsView> {
                 // TODO:
               });
             },
-            controller: TextEditingController(text: widget.product.productName),
+            controller:
+                TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
           TextField(
@@ -70,7 +73,8 @@ class _ProductDetailsState extends State<ProductDetailsView> {
                 // TODO:
               });
             },
-            controller: TextEditingController(text: widget.product.productName),
+            controller:
+                TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
           TextField(
@@ -84,7 +88,7 @@ class _ProductDetailsState extends State<ProductDetailsView> {
               });
             },
             controller: TextEditingController(
-                text: widget.product.productName /* toStringAsFixed(2)*/),
+                text: widget.product!.productName /* toStringAsFixed(2)*/),
           ),
           const SizedBox(height: 16.0),
           TextField(
@@ -97,7 +101,8 @@ class _ProductDetailsState extends State<ProductDetailsView> {
                 // TODO:
               });
             },
-            controller: TextEditingController(text: widget.product.productName),
+            controller:
+                TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 32.0),
           Row(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:stoktakip/shared/views/product_details_view.dart';
 
 import '../../shared/views/product_card.dart';
 import '../viewmodel/product_model.dart';
 
 class InventoryView extends StatelessWidget {
-  const InventoryView({super.key});
+  const InventoryView({super.key, required this.gotoProductPage});
+
+  final void Function(Product product) gotoProductPage;
 
   final List<String> products = const ['1', '2', '3'];
 
@@ -26,7 +29,23 @@ class InventoryView extends StatelessWidget {
                         productName: products[index],
                         productPrice: 1234.23)),
                 onTap: () {
-                  print("clicked");
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ProductDetailsView(
+                  //             product: Product(
+                  //                 imageUrl: 'https://via.placeholder.com/150',
+                  //                 numOfProducts: 23,
+                  //                 productCategory: 'it',
+                  //                 productName: products[index],
+                  //                 productPrice: 1234.23))));
+                  print("Clicked");
+                  gotoProductPage(Product(
+                      imageUrl: 'https://via.placeholder.com/150',
+                      numOfProducts: 23,
+                      productCategory: 'it',
+                      productName: products[index],
+                      productPrice: 1234.23));
                 },
               );
             },
