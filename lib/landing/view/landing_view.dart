@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stoktakip/inventory/view/inventory_view.dart';
+import 'package:stoktakip/sales_mode/view/sales_mode_view.dart';
 
 import '../../other/view/bar_view.dart';
 import '../../other/view/baz_view.dart';
@@ -56,7 +57,7 @@ class _LandingView extends State<LandingView> {
 
   final List<Widget> _children = const [
     InventoryView(),
-    Foo(),
+    SalesMode(),
     Baz(),
     Bar(),
   ];

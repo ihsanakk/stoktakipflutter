@@ -9,4 +9,9 @@ class LabelNames {
     "Tara",
     "Geçmiş"
   ];
+  static const String SALES_MODE_TOTAL_PRICE = "Genel Toplam";
+  static const String SALES_MODE_CLEAN_BUTTON = "Temizle";
+  static const String SALES_MODE_SCAN_BUTTON = "Tara";
+
+  // TODO -> refactor for languages settings enum or something else search for it
 }
