@@ -7,9 +7,9 @@ import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
 import '../../shared/views/product_details_shared.dart';
 
 class ProductView extends StatefulWidget {
-  Product? product;
+  final Product? product;
 
-  ProductView({Key? key, this.product}) : super(key: key);
+  const ProductView({Key? key, this.product}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ProductView();

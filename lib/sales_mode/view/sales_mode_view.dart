@@ -3,8 +3,6 @@ import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
 
 import '../../inventory/viewmodel/product_model.dart';
 
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-
 import '../../shared/views/product_card.dart';
 
 class SalesMode extends StatefulWidget {
@@ -70,6 +68,7 @@ class _SalesMode extends State<SalesMode> {
                   child: ProductCardView(
                       isSaleMode: true,
                       product: Product(
+                          productBarcode: '12345678901',
                           imageUrl: 'https://via.placeholder.com/150',
                           numOfProducts: 23,
                           productCategory: 'it',

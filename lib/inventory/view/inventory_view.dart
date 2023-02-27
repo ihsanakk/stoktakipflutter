@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stoktakip/shared/views/product_details_shared.dart';
 
 import '../../shared/views/product_card.dart';
 import '../viewmodel/product_model.dart';
@@ -23,6 +22,7 @@ class InventoryView extends StatelessWidget {
                 child: ProductCardView(
                     isSaleMode: false,
                     product: Product(
+                        productBarcode: '12345678901',
                         imageUrl: 'https://via.placeholder.com/150',
                         numOfProducts: 23,
                         productCategory: 'it',

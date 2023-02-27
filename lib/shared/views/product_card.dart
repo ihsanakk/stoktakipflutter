@@ -30,6 +30,19 @@ class _ProductCardViewState extends State<ProductCardView> {
         const Text("1")
       ],
     );
+
+    Column otherDetails = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(width: 5),
+        Text(widget.product.productCategory ?? ''),
+        const SizedBox(
+          height: 3,
+        ),
+        Text('${widget.product.numOfProducts ?? ''}'),
+      ],
+    );
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Padding(
@@ -47,14 +60,12 @@ class _ProductCardViewState extends State<ProductCardView> {
             ),
           ),
           visualDensity: const VisualDensity(vertical: 3), // to expand
-          title: Text(widget.product.productName!.toUpperCase(), maxLines: 2),
-          subtitle: const Text("Spec"),
+          title: Text(widget.product.productName ?? '', maxLines: 2),
+          subtitle: Text(widget.product.productBarcode ?? ''),
           trailing: Column(
             children: [
-              Text(
-                widget.product.productName!.toUpperCase(),
-              ),
-              if (widget.isSaleMode!) addRemoveButtons,
+              Text('${widget.product.productPrice ?? ''}'),
+              if (widget.isSaleMode!) addRemoveButtons else otherDetails,
             ],
           ),
         ),
