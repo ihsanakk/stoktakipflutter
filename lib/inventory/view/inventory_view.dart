@@ -39,7 +39,6 @@ class InventoryView extends StatelessWidget {
                   //                 productCategory: 'it',
                   //                 productName: products[index],
                   //                 productPrice: 1234.23))));
-                  print("Clicked");
                   gotoProductPage(Product(
                       imageUrl: 'https://via.placeholder.com/150',
                       numOfProducts: 23,
