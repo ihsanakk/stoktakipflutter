@@ -51,6 +51,14 @@ class InventoryView extends StatelessWidget {
             },
           ),
         ),
+        FloatingActionButton(
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.black,
+          onPressed: () {
+            gotoProductPage(Product());
+          },
+          child: const Icon(Icons.add),
+        ),
       ],
     );
   }

@@ -29,7 +29,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_NAME,
             ),
-            initialValue: widget.product!.productName,
+            initialValue: widget.product!.productName ?? '',
             onChanged: (value) {
               setState(() {
                 // TODO:
@@ -43,7 +43,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_BARCODE,
             ),
-            initialValue: widget.product!.productName,
+            initialValue: widget.product!.productName ?? '',
             onChanged: (value) {
               setState(() {
                 // TODO:
@@ -57,7 +57,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_CREATED_AT,
             ),
-            initialValue: widget.product!.productName,
+            initialValue: widget.product!.productName ?? '',
             onChanged: (value) {
               setState(() {
                 // TODO:
@@ -71,7 +71,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_DESCRIPTION,
             ),
-            initialValue: widget.product!.productName,
+            initialValue: widget.product!.productName ?? '',
             onChanged: (value) {
               setState(() {
                 // TODO:
@@ -86,7 +86,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_PRICE,
             ),
             keyboardType: TextInputType.number,
-            initialValue: '${widget.product!.productPrice}',
+            initialValue: '${widget.product!.productPrice ?? ''}',
             onChanged: (value) {
               setState(() {
                 // TODO:
@@ -101,7 +101,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_QUANTITY,
             ),
             keyboardType: TextInputType.number,
-            initialValue: '${widget.product!.numOfProducts}',
+            initialValue: '${widget.product!.numOfProducts ?? ''}',
             onChanged: (value) {
               setState(() {
                 // TODO:
