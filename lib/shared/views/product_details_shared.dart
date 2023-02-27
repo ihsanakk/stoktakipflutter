@@ -25,84 +25,90 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Placeholder(),
           ),
           const SizedBox(height: 16.0),
-          TextField(
+          TextFormField(
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_NAME,
             ),
+            initialValue: widget.product!.productName,
             onChanged: (value) {
               setState(() {
                 // TODO:
               });
             },
-            controller:
-                TextEditingController(text: widget.product!.productName),
+            // controller:
+            //     TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
-          TextField(
+          TextFormField(
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_BARCODE,
             ),
+            initialValue: widget.product!.productName,
             onChanged: (value) {
               setState(() {
                 // TODO:
               });
             },
-            controller:
-                TextEditingController(text: widget.product!.productName),
+            // controller:
+            //     TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
-          TextField(
+          TextFormField(
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_CREATED_AT,
             ),
+            initialValue: widget.product!.productName,
             onChanged: (value) {
               setState(() {
                 // TODO:
               });
             },
-            controller:
-                TextEditingController(text: widget.product!.productName),
+            // controller:
+            //     TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
-          TextField(
+          TextFormField(
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_DESCRIPTION,
             ),
+            initialValue: widget.product!.productName,
             onChanged: (value) {
               setState(() {
                 // TODO:
               });
             },
-            controller:
-                TextEditingController(text: widget.product!.productName),
+            // controller:
+            //     TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
-          TextField(
+          TextFormField(
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_PRICE,
             ),
             keyboardType: TextInputType.number,
+            initialValue: '${widget.product!.productPrice}',
             onChanged: (value) {
               setState(() {
                 // TODO:
               });
             },
-            controller: TextEditingController(
-                text: widget.product!.productName /* toStringAsFixed(2)*/),
+            // controller: TextEditingController(
+            //     text: widget.product!.productName /* toStringAsFixed(2)*/),
           ),
           const SizedBox(height: 16.0),
-          TextField(
+          TextFormField(
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_QUANTITY,
             ),
             keyboardType: TextInputType.number,
+            initialValue: '${widget.product!.numOfProducts}',
             onChanged: (value) {
               setState(() {
                 // TODO:
               });
             },
-            controller:
-                TextEditingController(text: widget.product!.productName),
+            // controller:
+            //     TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 32.0),
           Row(
