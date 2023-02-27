@@ -12,6 +12,8 @@ class LabelNames {
   static const String SALES_MODE_TOTAL_PRICE = "Genel Toplam";
   static const String SALES_MODE_CLEAN_BUTTON = "Temizle";
   static const String SALES_MODE_SCAN_BUTTON = "Tara";
+  static const String SALES_MODE_REMOVE_PRODUCT_SCAFFOLD_MESSAGE =
+      "Ürün çıkartıldı.";
 
   static const String PRODUCT_VIEW_DELETE = "Sil";
   static const String PRODUCT_VIEW_UPDATE = "Güncelle";

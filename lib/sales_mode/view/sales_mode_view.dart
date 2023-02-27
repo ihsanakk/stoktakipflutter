@@ -55,7 +55,8 @@ class _SalesMode extends State<SalesMode> {
                     });
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text(' removed from cart'),
+                        content: Text(LabelNames
+                            .SALES_MODE_REMOVE_PRODUCT_SCAFFOLD_MESSAGE),
                         duration: Duration(seconds: 2),
                       ),
                     );
