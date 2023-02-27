@@ -25,32 +25,79 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Placeholder(),
           ),
           const SizedBox(height: 16.0),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_NAME,
-            ),
-            initialValue: widget.product!.productName ?? '',
-            onChanged: (value) {
-              setState(() {
-                // TODO:
-              });
-            },
-            // controller:
-            //     TextEditingController(text: widget.product!.productName),
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_NAME,
+                  ),
+                  initialValue: widget.product!.productName ?? '',
+                  onChanged: (value) {
+                    setState(() {
+                      // TODO:
+                    });
+                  },
+                  // controller:
+                  //     TextEditingController(text: widget.product!.productName),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_BARCODE,
+                  ),
+                  initialValue: widget.product!.productName ?? '',
+                  onChanged: (value) {
+                    setState(() {
+                      // TODO:
+                    });
+                  },
+                  // controller:
+                  //     TextEditingController(text: widget.product!.productName),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 16.0),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_BARCODE,
-            ),
-            initialValue: widget.product!.productName ?? '',
-            onChanged: (value) {
-              setState(() {
-                // TODO:
-              });
-            },
-            // controller:
-            //     TextEditingController(text: widget.product!.productName),
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_PRICE,
+                  ),
+                  keyboardType: TextInputType.number,
+                  initialValue: '${widget.product!.productPrice ?? ''}',
+                  onChanged: (value) {
+                    setState(() {
+                      // TODO:
+                    });
+                  },
+                  // controller: TextEditingController(
+                  //     text: widget.product!.productName /* toStringAsFixed(2)*/),
+                ),
+              ),
+              const SizedBox(width: 10.0),
+              Expanded(
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_QUANTITY,
+                  ),
+                  keyboardType: TextInputType.number,
+                  initialValue: '${widget.product!.numOfProducts ?? ''}',
+                  onChanged: (value) {
+                    setState(() {
+                      // TODO:
+                    });
+                  },
+                  // controller:
+                  //     TextEditingController(text: widget.product!.productName),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16.0),
           TextFormField(
@@ -66,7 +113,6 @@ class _ProductDetailsState extends State<ProductDetails> {
             // controller:
             //     TextEditingController(text: widget.product!.productName),
           ),
-          const SizedBox(height: 16.0),
           TextFormField(
             decoration: const InputDecoration(
               labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_DESCRIPTION,
@@ -81,35 +127,6 @@ class _ProductDetailsState extends State<ProductDetails> {
             //     TextEditingController(text: widget.product!.productName),
           ),
           const SizedBox(height: 16.0),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_PRICE,
-            ),
-            keyboardType: TextInputType.number,
-            initialValue: '${widget.product!.productPrice ?? ''}',
-            onChanged: (value) {
-              setState(() {
-                // TODO:
-              });
-            },
-            // controller: TextEditingController(
-            //     text: widget.product!.productName /* toStringAsFixed(2)*/),
-          ),
-          const SizedBox(height: 16.0),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_QUANTITY,
-            ),
-            keyboardType: TextInputType.number,
-            initialValue: '${widget.product!.numOfProducts ?? ''}',
-            onChanged: (value) {
-              setState(() {
-                // TODO:
-              });
-            },
-            // controller:
-            //     TextEditingController(text: widget.product!.productName),
-          ),
           const SizedBox(height: 32.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

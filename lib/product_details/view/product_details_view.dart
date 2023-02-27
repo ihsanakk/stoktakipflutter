@@ -31,6 +31,9 @@ class _ProductView extends State<ProductView> {
       child: Column(
         children: [
           ProductDetails(product: widget.product ?? productPlaceholder),
+          const SizedBox(
+            height: 16,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
