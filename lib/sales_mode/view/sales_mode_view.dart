@@ -6,34 +6,44 @@ import '../../inventory/viewmodel/product_model.dart';
 import '../../shared/views/product_card.dart';
 
 class SalesMode extends StatefulWidget {
-  const SalesMode({super.key});
+  const SalesMode({super.key, required this.gotoProductPage});
+
+  final void Function(Product product) gotoProductPage;
 
   @override
   State<StatefulWidget> createState() => _SalesMode();
 }
 
 class _SalesMode extends State<SalesMode> {
-  List<String> stringList = [
-    'eCwTkMVjJg',
-    'dXkLnPqRzSdRqu',
-    'pJlAqSfZwS',
-    'iJqKfNcTtTm',
-    'nTtLzWtGgJlK',
-    'zPvHjEaWcBhLkGm',
-    'dRfMjKzSgHfBq',
-    'cQdPqZyVxUjKlI',
-    'vDqWnZcRrJfK',
-    'aRbDpWfVjK',
-    'lMnKdHgWtVjQxP',
-    'eVzUwGdHcXyN',
-    'gPfJlKbWmVzQ',
-    'oTnJfCzLxNqGmI',
-    'yVqKdPnBfRjMx',
-    'mHgRcLdWjP',
-    'sFhGjKtRnDm',
-    'xSbJkDqHvT',
-    'uJfXzPnGtY',
-    'tWjKfZpNcR'
+  List<Product> productList = [
+    Product(
+        productBarcode: '12345678901',
+        imageUrl: 'https://via.placeholder.com/150',
+        numOfProducts: 23,
+        productCategory: 'it',
+        productName: 'Product Name 1',
+        productPrice: 1234.23),
+    Product(
+        productBarcode: '12345678901',
+        imageUrl: 'https://via.placeholder.com/150',
+        numOfProducts: 23,
+        productCategory: 'it',
+        productName: 'Product Name 2',
+        productPrice: 1234.23),
+    Product(
+        productBarcode: '12345678901',
+        imageUrl: 'https://via.placeholder.com/150',
+        numOfProducts: 23,
+        productCategory: 'it',
+        productName: 'Product Name 3',
+        productPrice: 1234.23),
+    Product(
+        productBarcode: '12345678901',
+        imageUrl: 'https://via.placeholder.com/150',
+        numOfProducts: 23,
+        productCategory: 'it',
+        productName: 'Product Name 4',
+        productPrice: 1234.23),
   ];
 
   @override
@@ -42,7 +52,7 @@ class _SalesMode extends State<SalesMode> {
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: stringList.length,
+            itemCount: productList.length,
             itemBuilder: (BuildContext context, int index) {
               return Dismissible(
                   key: UniqueKey(),
@@ -65,15 +75,13 @@ class _SalesMode extends State<SalesMode> {
                     color: Colors.red,
                     child: const Icon(Icons.delete, color: Colors.white),
                   ),
-                  child: ProductCardView(
-                      isSaleMode: true,
-                      product: Product(
-                          productBarcode: '12345678901',
-                          imageUrl: 'https://via.placeholder.com/150',
-                          numOfProducts: 23,
-                          productCategory: 'it',
-                          productName: stringList[index],
-                          productPrice: 1234.23)));
+                  child: GestureDetector(
+                    onTap: () {
+                      widget.gotoProductPage(productList[index]);
+                    },
+                    child: ProductCardView(
+                        isSaleMode: true, product: productList[index]),
+                  ));
             },
           ),
         ),

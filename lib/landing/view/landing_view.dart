@@ -68,7 +68,14 @@ class _LandingView extends State<LandingView> {
           },
         );
       case 1:
-        return const SalesMode();
+        return SalesMode(
+          gotoProductPage: (product) {
+            _product = product;
+            setState(() {
+              _currentIndex = 2;
+            });
+          },
+        );
       case 2:
         return ProductView(
           product: _product,
