@@ -7,14 +7,14 @@ import '../../other/view/bar_view.dart';
 import '../../product_details/view/product_details_view.dart';
 import '../../shared/enumLabel/label_names_enum.dart';
 
-class LandingView extends StatefulWidget {
-  const LandingView({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
   @override
-  State<StatefulWidget> createState() => _LandingView();
+  State<StatefulWidget> createState() => _HomeView();
 }
 
-class _LandingView extends State<LandingView> {
+class _HomeView extends State<HomeView> {
   int _currentIndex = 0;
 
   @override
