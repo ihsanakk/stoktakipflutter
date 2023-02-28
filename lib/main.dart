@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stoktakip/home/view/home_view.dart';
+import 'package:stoktakip/landing/view/landing_view.dart';
+import 'package:stoktakip/login/view/login_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo', theme: ThemeData.dark(), home: const HomeView());
+      title: 'Flutter Demo',
+      theme: ThemeData.dark(),
+      routes: {
+        '/': (context) => const LandingView(),
+        '/login': (context) => const LoginView(),
+        '/home': (context) => const HomeView(),
+      },
+    );
   }
 }

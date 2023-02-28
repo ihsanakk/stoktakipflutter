@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stoktakip/inventory/view/inventory_view.dart';
 import 'package:stoktakip/sales_mode/view/sales_mode_view.dart';
 
@@ -17,12 +18,80 @@ class HomeView extends StatefulWidget {
 class _HomeView extends State<HomeView> {
   int _currentIndex = 0;
 
+  String? _username;
+
+  _loadUserInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _username = (prefs.getString('username') ?? "");
+    welcomeSnack(_username ?? '', super.context);
+  }
+
+  void welcomeSnack(String value, BuildContext context) {
+    if (value != '') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('${LabelNames.WELCOME_SNACK} $value'),
+        duration: const Duration(seconds: 2),
+      ));
+    }
+  }
+
+  void _handleLogout() {
+    Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+    prefs.then((value) => {
+          value.remove("username"),
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/login', ModalRoute.withName('/login'))
+        });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(LabelNames.INVENTORY_VIEW_APPBAR_TITLES[_currentIndex]),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    "https://c4.wallpaperflare.com/wallpaper/992/545/78/abstract-shapes-hd-wallpaper-preview.jpg",
+                  ),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: Stack(
+                children: const [
+                  Positioned(
+                    bottom: 8.0,
+                    left: 4.0,
+                    child: Text(
+                      "Stok Takip",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text(LabelNames.LOGOUT),
+              onTap: () {
+                _handleLogout();
+              },
+            ),
+          ],
+        ),
       ),
       body: body(),
       bottomNavigationBar: BottomNavigationBar(
