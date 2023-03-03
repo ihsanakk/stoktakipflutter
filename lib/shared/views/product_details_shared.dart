@@ -50,7 +50,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   decoration: const InputDecoration(
                     labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_BARCODE,
                   ),
-                  initialValue: widget.product!.productName ?? '',
+                  initialValue: widget.product!.productBarcode ?? '',
                   onChanged: (value) {
                     setState(() {
                       // TODO:

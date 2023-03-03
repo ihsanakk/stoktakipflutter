@@ -44,5 +44,7 @@ class LabelNames {
 
   static const String LOGIN_VIEW_LABEL_PASSWORD = "Şifre";
 
+  static const String INVENTORY_VIEW_SEARCH_HINT = "Ara";
+
   // TODO -> refactor for languages settings enum or something else search for it
 }
