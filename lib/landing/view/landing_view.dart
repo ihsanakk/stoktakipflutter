@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stoktakip/core/cache_manager.dart';
 
 class LandingView extends StatefulWidget {
   const LandingView({super.key});
@@ -8,30 +8,31 @@ class LandingView extends StatefulWidget {
   State<StatefulWidget> createState() => _LandingState();
 }
 
-class _LandingState extends State<LandingView> {
-  String _username = "";
-
+class _LandingState extends State<LandingView> with CacheManager {
   @override
   void initState() {
     super.initState();
-    _loadUserInfo();
+    loadToken();
   }
 
-  _loadUserInfo() {
-    Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-    prefs.then((value) => {
-          _username = (value.getString('username') ?? ""),
-          if (_username == "")
-            {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/login', ModalRoute.withName('/login')),
-            }
-          else
-            {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', ModalRoute.withName('/home')),
-            }
-        });
+  loadToken() async {
+    final token = await getToken();
+
+    if (token != null) {
+      navigateHome();
+    } else {
+      navigateLogin();
+    }
+  }
+
+  navigateLogin() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/login', ModalRoute.withName('/login'));
+  }
+
+  navigateHome() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/home', ModalRoute.withName('/home'));
   }
 
   @override

@@ -11,6 +11,7 @@ class LabelNames {
   ];
   static const String LOGOUT = "Çıkış";
   static const String WELCOME_SNACK = "Hoşgeldiniz";
+  static const String FAIL_LOGIN = "Giriş başarısız";
 
   static const String SALES_MODE_TOTAL_PRICE = "Genel Toplam";
   static const String SALES_MODE_CLEAN_BUTTON = "Temizle";
@@ -36,6 +37,10 @@ class LabelNames {
   static const String LOGIN_VIEW_TITLE = "Giriş";
   static const String LOGIN_VIEW_MESSAGE_EMAIL_REQUIRED =
       "Email girilmesi zorunludur.";
+  static const String LOGIN_VIEW_MESSAGE_INVALID_EMAIL =
+      "Lütfen geçerli bir email girin.";
+  static const String LOGIN_VIEW_MESSAGE_INVALID_PASSWORD =
+      "Lütfen geçerli bir şifre girin.";
   static const String LOGIN_VIEW_MESSAGE_PASSWORD_REQUIRED =
       "Şifre girilmesi zorunludur.";
   static const String LOGIN_VIEW_LOGIN_BUTTON = "Giriş";

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stoktakip/core/cache_manager.dart';
 import 'package:stoktakip/inventory/view/inventory_view.dart';
 import 'package:stoktakip/sales_mode/view/sales_mode_view.dart';
 
@@ -15,39 +15,40 @@ class HomeView extends StatefulWidget {
   State<StatefulWidget> createState() => _HomeView();
 }
 
-class _HomeView extends State<HomeView> {
+class _HomeView extends State<HomeView> with CacheManager {
   int _currentIndex = 0;
-
-  String? _username;
-
-  _loadUserInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _username = (prefs.getString('username') ?? "");
-    welcomeSnack(_username ?? '', super.context);
-  }
-
+  String? _userMail;
   void welcomeSnack(String value, BuildContext context) {
     if (value != '') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${LabelNames.WELCOME_SNACK} $value'),
-        duration: const Duration(seconds: 2),
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(LabelNames.WELCOME_SNACK),
+        duration: Duration(seconds: 2),
       ));
     }
   }
 
+  void loadUserMail() async {
+    final mail = await getMail();
+
+    setState(() {
+      _userMail = mail;
+    });
+  }
+
   void _handleLogout() {
-    Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-    prefs.then((value) => {
-          value.remove("username"),
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/login', ModalRoute.withName('/login'))
-        });
+    removeToken();
+    navigateLogin();
+  }
+
+  navigateLogin() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/login', ModalRoute.withName('/login'));
   }
 
   @override
   void initState() {
     super.initState();
-    _loadUserInfo();
+    loadUserMail();
   }
 
   @override
@@ -79,9 +80,13 @@ class _HomeView extends State<HomeView> {
                       "Stok Takip",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                  )
+                  ),
                 ],
               ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.verified_user_rounded),
+              title: Text(_userMail ?? ''),
             ),
             ListTile(
               leading: const Icon(Icons.logout),

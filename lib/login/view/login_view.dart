@@ -1,6 +1,11 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stoktakip/core/cache_manager.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
+
+import '../../shared/configuration/dio_options.dart';
+import '../model/login_request.dart';
+import '../service/login_service.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -9,34 +14,57 @@ class LoginView extends StatefulWidget {
   State<StatefulWidget> createState() => _LoginState();
 }
 
-class _LoginState extends State<LoginView> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+class _LoginState extends State<LoginView> with CacheManager {
+  late final LoginService loginService;
 
+  @override
+  void initState() {
+    super.initState();
+    loginService = LoginService(CustomDio.getDio());
+  }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String? _email, _password;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void showInSnackBar(String value, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+  void showInSnackBar(String value) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(value),
+      duration: const Duration(seconds: 3),
+    ));
   }
 
-  void _handleSubmitted() {
+  bool _isLoading = false;
+
+  void _handleSubmitted() async {
     final FormState? form = _formKey.currentState;
     if (!form!.validate()) {
-      showInSnackBar(LabelNames.LOGIN_VIEW_MESSAGE_INVALID_FORM, context);
+      showInSnackBar(LabelNames.LOGIN_VIEW_MESSAGE_INVALID_FORM);
     } else {
       form.save();
-      if (_password == "password") {
-        Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-        prefs.then((value) => {
-              value.setString("username", _email!),
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', ModalRoute.withName('/home'))
-            });
+      setState(() {
+        _isLoading = true;
+      });
+      final response = await loginService
+          .login(LoginRequest(email: _email, password: _password));
+      if (response != null) {
+        saveToken(response.token ?? '');
+        saveUserMail(response.email ?? '');
+        navigateHome();
+        showInSnackBar(LabelNames.WELCOME_SNACK);
       } else {
-        showInSnackBar(LabelNames.LOGIN_VIEW_MESSAGE_BAD_CREDENTIALS, context);
+        showInSnackBar(LabelNames.FAIL_LOGIN);
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
+  }
+
+  void navigateHome() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/home', ModalRoute.withName('/home'));
   }
 
   @override
@@ -65,6 +93,8 @@ class _LoginState extends State<LoginView> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return LabelNames.LOGIN_VIEW_MESSAGE_EMAIL_REQUIRED;
+                      } else if (!EmailValidator.validate(value)) {
+                        return LabelNames.LOGIN_VIEW_MESSAGE_INVALID_EMAIL;
                       }
                     },
                   ),
@@ -78,8 +108,9 @@ class _LoginState extends State<LoginView> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return LabelNames.LOGIN_VIEW_MESSAGE_PASSWORD_REQUIRED;
+                      } else if (value.length < 8) {
+                        return LabelNames.LOGIN_VIEW_MESSAGE_INVALID_PASSWORD;
                       }
-                      return null;
                     },
                   ),
                   const SizedBox(height: 10.0),
@@ -91,7 +122,11 @@ class _LoginState extends State<LoginView> {
                           label:
                               const Text(LabelNames.LOGIN_VIEW_LOGIN_BUTTON)),
                     ],
-                  )
+                  ),
+                  Center(
+                      child: _isLoading
+                          ? const CircularProgressIndicator()
+                          : null),
                 ],
               ),
             ),
