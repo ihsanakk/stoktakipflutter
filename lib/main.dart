@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stoktakip/home/view/home_view.dart';
 import 'package:stoktakip/landing/view/landing_view.dart';
-import 'package:stoktakip/auth/login/view/login_view.dart';
+import 'package:stoktakip/login/view/login_view.dart';
 
 void main() {
   runApp(const MyApp());
