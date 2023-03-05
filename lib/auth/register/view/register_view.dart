@@ -1,33 +1,35 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:stoktakip/auth/register/view/register_view.dart';
+import 'package:stoktakip/auth/register/model/register_request_model.dart';
+import 'package:stoktakip/auth/register/service/register_service.dart';
 import 'package:stoktakip/core/cache_manager.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
 
 import '../../../shared/configuration/dio_options.dart';
-import '../model/login_request.dart';
-import '../service/login_service.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<StatefulWidget> createState() => _LoginState();
+  State<StatefulWidget> createState() => _RegisterState();
 }
 
-class _LoginState extends State<LoginView> with CacheManager {
-  late final LoginService loginService;
+class _RegisterState extends State<RegisterView> with CacheManager {
+  late final RegisterService registerService;
 
   @override
   void initState() {
     super.initState();
-    loginService = LoginService(CustomDio.getDio());
+    registerService = RegisterService(CustomDio.getDio());
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String? _email, _password;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmController =
+      TextEditingController();
 
   void showInSnackBar(String value) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -47,15 +49,13 @@ class _LoginState extends State<LoginView> with CacheManager {
       setState(() {
         _isLoading = true;
       });
-      final response = await loginService
-          .login(LoginRequest(email: _email, password: _password));
+      final response = await registerService
+          .register(RegisterRequest(email: _email, password: _password));
       if (response != null) {
-        saveToken(response.token ?? '');
-        saveUserMail(response.email ?? '');
-        navigateHome();
-        showInSnackBar(LabelNames.WELCOME_SNACK);
+        navigateLogin();
+        showInSnackBar(LabelNames.SUCCESS_REGISTER);
       } else {
-        showInSnackBar(LabelNames.FAIL_LOGIN);
+        showInSnackBar(LabelNames.FAIL_REGISTER);
         setState(() {
           _isLoading = false;
         });
@@ -63,25 +63,18 @@ class _LoginState extends State<LoginView> with CacheManager {
     }
   }
 
-  void navigateHome() {
+  void navigateLogin() {
     Navigator.pushNamedAndRemoveUntil(
-        context, '/home', ModalRoute.withName('/home'));
-  }
-
-  void navigateRegister() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const RegisterView()));
+        context, '/login', ModalRoute.withName('/login'),
+        arguments: _email);
   }
 
   @override
   Widget build(BuildContext context) {
-    var passedEmail = ModalRoute.of(context)!.settings.arguments;
-    passedEmail ??= '';
-
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text(LabelNames.LOGIN_VIEW_TITLE),
+          title: const Text(LabelNames.REGISTER_VIEW_TITLE),
         ),
         body: SafeArea(
           top: false,
@@ -94,7 +87,6 @@ class _LoginState extends State<LoginView> with CacheManager {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
-                    initialValue: passedEmail as String,
                     key: const Key("_mobile"),
                     decoration: const InputDecoration(
                         labelText: LabelNames.LOGIN_VIEW_LABEL_EMAIL),
@@ -110,6 +102,7 @@ class _LoginState extends State<LoginView> with CacheManager {
                     },
                   ),
                   TextFormField(
+                    controller: _passwordController,
                     decoration: const InputDecoration(
                         labelText: LabelNames.LOGIN_VIEW_LABEL_PASSWORD),
                     obscureText: true,
@@ -125,6 +118,24 @@ class _LoginState extends State<LoginView> with CacheManager {
                       return null;
                     },
                   ),
+                  TextFormField(
+                    controller: _passwordConfirmController,
+                    decoration: const InputDecoration(
+                        labelText:
+                            LabelNames.REGISTER_VIEW_LABEL_PASSWORD_CONFIRM),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return LabelNames.LOGIN_VIEW_MESSAGE_PASSWORD_REQUIRED;
+                      } else if (value.length < 8) {
+                        return LabelNames.LOGIN_VIEW_MESSAGE_INVALID_PASSWORD;
+                      } else if (value != _passwordController.text) {
+                        return LabelNames
+                            .REGISTER_VIEW_MESSAGE_INVALID_PASSWORD;
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 10.0),
                   ButtonBar(
                     children: <Widget>[
@@ -132,29 +143,7 @@ class _LoginState extends State<LoginView> with CacheManager {
                           onPressed: _handleSubmitted,
                           icon: const Icon(Icons.arrow_forward),
                           label:
-                              const Text(LabelNames.LOGIN_VIEW_LOGIN_BUTTON)),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      const Text(
-                        LabelNames.REGISTER_HAVE_ACCOUNT_TEXT,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        onTap: () => navigateRegister(),
-                        child: const Text(
-                          LabelNames.REGISTER_BUTTON_REGISTER,
-                          style: TextStyle(
-                              fontSize: 20,
-                              decoration: TextDecoration.underline,
-                              color: Colors.blue),
-                        ),
-                      ),
+                              const Text(LabelNames.REGISTER_BUTTON_REGISTER)),
                     ],
                   ),
                   Center(

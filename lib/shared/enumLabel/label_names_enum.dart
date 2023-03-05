@@ -12,6 +12,8 @@ class LabelNames {
   static const String LOGOUT = "Çıkış";
   static const String WELCOME_SNACK = "Hoşgeldiniz";
   static const String FAIL_LOGIN = "Giriş başarısız";
+  static const String FAIL_REGISTER = "Kayıt başarısız";
+  static const String SUCCESS_REGISTER = "Kayıt başarılı";
 
   static const String SALES_MODE_TOTAL_PRICE = "Genel Toplam";
   static const String SALES_MODE_CLEAN_BUTTON = "Temizle";
@@ -51,5 +53,11 @@ class LabelNames {
 
   static const String INVENTORY_VIEW_SEARCH_HINT = "Ara";
 
+  static const String REGISTER_VIEW_MESSAGE_INVALID_PASSWORD =
+      "Şifreler eşleşmiyor";
+  static const String REGISTER_VIEW_LABEL_PASSWORD_CONFIRM = "Şifre Tekrar";
+  static const String REGISTER_VIEW_TITLE = "Kayıt ol";
+  static const String REGISTER_BUTTON_REGISTER = "Kayıt ol";
+  static const String REGISTER_HAVE_ACCOUNT_TEXT = "Hesabınız yok mu?";
   // TODO -> refactor for languages settings enum or something else search for it
 }

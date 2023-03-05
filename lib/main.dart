@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stoktakip/auth/register/view/register_view.dart';
 import 'package:stoktakip/home/view/home_view.dart';
 import 'package:stoktakip/landing/view/landing_view.dart';
 import 'package:stoktakip/auth/login/view/login_view.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LandingView(),
         '/login': (context) => const LoginView(),
+        '/register': (context) => const RegisterView(),
         '/home': (context) => const HomeView(),
       },
     );
