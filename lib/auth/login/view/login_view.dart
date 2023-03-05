@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stoktakip/core/cache_manager.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
 
-import '../../shared/configuration/dio_options.dart';
+import '../../../shared/configuration/dio_options.dart';
 import '../model/login_request.dart';
 import '../service/login_service.dart';
 
