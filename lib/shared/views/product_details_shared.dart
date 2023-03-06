@@ -38,8 +38,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                       // TODO:
                     });
                   },
-                  // controller:
-                  //     TextEditingController(text: widget.product!.productName),
                 ),
               ),
               const SizedBox(
@@ -56,8 +54,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                       // TODO:
                     });
                   },
-                  // controller:
-                  //     TextEditingController(text: widget.product!.productName),
                 ),
               ),
             ],
@@ -76,8 +72,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                       // TODO:
                     });
                   },
-                  // controller: TextEditingController(
-                  //     text: widget.product!.productName /* toStringAsFixed(2)*/),
                 ),
               ),
               const SizedBox(width: 10.0),
@@ -93,8 +87,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                       // TODO:
                     });
                   },
-                  // controller:
-                  //     TextEditingController(text: widget.product!.productName),
                 ),
               ),
             ],
@@ -110,8 +102,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                 // TODO:
               });
             },
-            // controller:
-            //     TextEditingController(text: widget.product!.productName),
           ),
           TextFormField(
             decoration: const InputDecoration(
@@ -123,36 +113,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                 // TODO:
               });
             },
-            // controller:
-            //     TextEditingController(text: widget.product!.productName),
-          ),
-          const SizedBox(height: 16.0),
-          const SizedBox(height: 32.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  // TODO:
-                },
-                icon: const Icon(
-                  Icons.delete,
-                  size: 36,
-                  color: Colors.redAccent,
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              IconButton(
-                onPressed: () {
-                  // TODO:
-                },
-                icon: const Icon(
-                  Icons.file_upload_rounded,
-                  size: 36,
-                  color: Colors.greenAccent,
-                ),
-              ),
-            ],
           ),
         ],
       ),

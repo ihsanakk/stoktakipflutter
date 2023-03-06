@@ -23,16 +23,51 @@ class _ProductView extends State<ProductView> {
       productName: '',
       productPrice: 0.0);
 
+  bool _isScanned = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isScanned = false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // scanProductBarcode();
-
     return SingleChildScrollView(
       child: Column(
         children: [
-          ProductDetails(product: widget.product ?? productPlaceholder),
+          ProductDetails(
+              product: (_isScanned
+                  ? (productPlaceholder)
+                  : (widget.product ?? productPlaceholder))),
           const SizedBox(
             height: 16,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  // TODO:
+                },
+                icon: const Icon(
+                  Icons.delete,
+                  size: 36,
+                  color: Colors.redAccent,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              IconButton(
+                onPressed: () {
+                  // TODO:
+                },
+                icon: const Icon(
+                  Icons.file_upload_rounded,
+                  size: 36,
+                  color: Colors.greenAccent,
+                ),
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -51,6 +86,8 @@ class _ProductView extends State<ProductView> {
     String result = await FlutterBarcodeScanner.scanBarcode(
         "#ff6666", "Cancel", true, ScanMode.DEFAULT);
 
-    setState(() {});
+    setState(() {
+      _isScanned = true;
+    });
   }
 }
