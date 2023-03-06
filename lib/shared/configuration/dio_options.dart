@@ -13,4 +13,11 @@ class CustomDio {
   static Dio getDio() {
     return _dio;
   }
+
+  static Options authOptions(String? token) {
+    return Options(headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    });
+  }
 }
