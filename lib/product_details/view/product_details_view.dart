@@ -4,8 +4,6 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:stoktakip/inventory/viewmodel/product_model.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
 
-import '../../shared/views/product_details_shared.dart';
-
 class ProductView extends StatefulWidget {
   final Product? product;
 
@@ -36,10 +34,80 @@ class _ProductView extends State<ProductView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ProductDetails(
-              product: (_isScanned
-                  ? (productPlaceholder)
-                  : (widget.product ?? productPlaceholder))),
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50.0,
+                  width: 50.0,
+                  child: Placeholder(),
+                ),
+                const SizedBox(height: 16.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_NAME,
+                        ),
+                        initialValue: widget.product!.productName ?? '',
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_BARCODE,
+                        ),
+                        initialValue: widget.product!.productBarcode ?? '',
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_PRICE,
+                        ),
+                        keyboardType: TextInputType.number,
+                        initialValue: '${widget.product!.productPrice ?? ''}',
+                      ),
+                    ),
+                    const SizedBox(width: 10.0),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText:
+                              LabelNames.PRODUCT_DETAILS_PRODUCT_QUANTITY,
+                        ),
+                        keyboardType: TextInputType.number,
+                        initialValue: '${widget.product!.numOfProducts ?? ''}',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_CREATED_AT,
+                  ),
+                  initialValue: widget.product!.productName ?? '',
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_DESCRIPTION,
+                  ),
+                  initialValue: widget.product!.productName ?? '',
+                ),
+              ],
+            ),
+          ),
           const SizedBox(
             height: 16,
           ),
