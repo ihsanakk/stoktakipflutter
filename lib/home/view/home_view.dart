@@ -20,9 +20,9 @@ class _HomeView extends State<HomeView> with CacheManager {
   String? _userMail;
   void welcomeSnack(String value, BuildContext context) {
     if (value != '') {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(LabelNames.WELCOME_SNACK),
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ));
     }
   }
@@ -90,7 +90,7 @@ class _HomeView extends State<HomeView> with CacheManager {
             ),
             ListTile(
               leading: const Icon(Icons.logout),
-              title: const Text(LabelNames.LOGOUT),
+              title: Text(LabelNames.LOGOUT),
               onTap: () {
                 _handleLogout();
               },
@@ -100,18 +100,18 @@ class _HomeView extends State<HomeView> with CacheManager {
       ),
       body: body(),
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.inventory_rounded),
+              icon: const Icon(Icons.inventory_rounded),
               label: LabelNames.BOTTOM_NAVBAR_ITEM_1),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_rounded),
+              icon: const Icon(Icons.shopping_cart_rounded),
               label: LabelNames.BOTTOM_NAVBAR_ITEM_2),
           BottomNavigationBarItem(
-              icon: Icon(Icons.qr_code_2_rounded),
+              icon: const Icon(Icons.qr_code_2_rounded),
               label: LabelNames.BOTTOM_NAVBAR_ITEM_3),
           BottomNavigationBarItem(
-              icon: Icon(Icons.history_rounded),
+              icon: const Icon(Icons.history_rounded),
               label: LabelNames.BOTTOM_NAVBAR_ITEM_4),
         ],
         onTap: onTabTapped,

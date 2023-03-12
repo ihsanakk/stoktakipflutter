@@ -62,10 +62,10 @@ class _SalesMode extends State<SalesMode> {
                       // products.removeAt(index);
                     });
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                      SnackBar(
                         content: Text(LabelNames
                             .SALES_MODE_REMOVE_PRODUCT_SCAFFOLD_MESSAGE),
-                        duration: Duration(seconds: 2),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   },
@@ -94,10 +94,10 @@ class _SalesMode extends State<SalesMode> {
               BoxDecoration(color: Colors.white24, border: Border.all()),
           padding: const EdgeInsets.only(left: 20),
           child: Row(
-            children: const [
+            children: [
               Text(
                 "${LabelNames.SALES_MODE_TOTAL_PRICE}: \$ ",
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w400),

@@ -40,9 +40,9 @@ class _InventoryState extends State<InventoryView> {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: TextFormField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
                 hintText: LabelNames.INVENTORY_VIEW_SEARCH_HINT,
-                icon: Icon(Icons.search_rounded)),
+                icon: const Icon(Icons.search_rounded)),
             onChanged: (value) {
               _filter(value);
             },

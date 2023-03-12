@@ -74,7 +74,7 @@ class _RegisterState extends State<RegisterView> with CacheManager {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text(LabelNames.REGISTER_VIEW_TITLE),
+          title: Text(LabelNames.REGISTER_VIEW_TITLE),
         ),
         body: SafeArea(
           top: false,
@@ -88,7 +88,7 @@ class _RegisterState extends State<RegisterView> with CacheManager {
                 children: <Widget>[
                   TextFormField(
                     key: const Key("_mobile"),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         labelText: LabelNames.LOGIN_VIEW_LABEL_EMAIL),
                     keyboardType: TextInputType.emailAddress,
                     onSaved: (value) => {_email = value},
@@ -103,7 +103,7 @@ class _RegisterState extends State<RegisterView> with CacheManager {
                   ),
                   TextFormField(
                     controller: _passwordController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         labelText: LabelNames.LOGIN_VIEW_LABEL_PASSWORD),
                     obscureText: true,
                     onSaved: (value) {
@@ -120,7 +120,7 @@ class _RegisterState extends State<RegisterView> with CacheManager {
                   ),
                   TextFormField(
                     controller: _passwordConfirmController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         labelText:
                             LabelNames.REGISTER_VIEW_LABEL_PASSWORD_CONFIRM),
                     obscureText: true,
@@ -142,8 +142,7 @@ class _RegisterState extends State<RegisterView> with CacheManager {
                       ElevatedButton.icon(
                           onPressed: _handleSubmitted,
                           icon: const Icon(Icons.arrow_forward),
-                          label:
-                              const Text(LabelNames.REGISTER_BUTTON_REGISTER)),
+                          label: Text(LabelNames.REGISTER_BUTTON_REGISTER)),
                     ],
                   ),
                   Center(

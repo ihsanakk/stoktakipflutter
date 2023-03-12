@@ -81,7 +81,7 @@ class _ProductView extends State<ProductView> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_NAME,
                           ),
                           onSaved: (newValue) {
@@ -102,7 +102,7 @@ class _ProductView extends State<ProductView> {
                       ),
                       Expanded(
                         child: TextFormField(
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText:
                                 LabelNames.PRODUCT_DETAILS_PRODUCT_BARCODE,
                           ),
@@ -125,7 +125,7 @@ class _ProductView extends State<ProductView> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_PRICE,
                           ),
                           keyboardType: TextInputType.number,
@@ -139,7 +139,7 @@ class _ProductView extends State<ProductView> {
                       const SizedBox(width: 10.0),
                       Expanded(
                         child: TextFormField(
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText:
                                 LabelNames.PRODUCT_DETAILS_PRODUCT_QUANTITY,
                           ),
@@ -207,7 +207,7 @@ class _ProductView extends State<ProductView> {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(40)),
-                child: const Text(LabelNames.PRODUCT_VIEW_SCAN)),
+                child: Text(LabelNames.PRODUCT_VIEW_SCAN)),
           )
         ],
       ),

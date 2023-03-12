@@ -81,7 +81,7 @@ class _LoginState extends State<LoginView> with CacheManager {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: const Text(LabelNames.LOGIN_VIEW_TITLE),
+          title: Text(LabelNames.LOGIN_VIEW_TITLE),
         ),
         body: SafeArea(
           top: false,
@@ -96,7 +96,7 @@ class _LoginState extends State<LoginView> with CacheManager {
                   TextFormField(
                     initialValue: passedEmail as String,
                     key: const Key("_mobile"),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         labelText: LabelNames.LOGIN_VIEW_LABEL_EMAIL),
                     keyboardType: TextInputType.emailAddress,
                     onSaved: (value) => {_email = value},
@@ -110,7 +110,7 @@ class _LoginState extends State<LoginView> with CacheManager {
                     },
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         labelText: LabelNames.LOGIN_VIEW_LABEL_PASSWORD),
                     obscureText: true,
                     onSaved: (value) {
@@ -131,25 +131,24 @@ class _LoginState extends State<LoginView> with CacheManager {
                       ElevatedButton.icon(
                           onPressed: _handleSubmitted,
                           icon: const Icon(Icons.arrow_forward),
-                          label:
-                              const Text(LabelNames.LOGIN_VIEW_LOGIN_BUTTON)),
+                          label: Text(LabelNames.LOGIN_VIEW_LOGIN_BUTTON)),
                     ],
                   ),
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      const Text(
+                      Text(
                         LabelNames.REGISTER_HAVE_ACCOUNT_TEXT,
-                        style: TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 20),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
                       InkWell(
                         onTap: () => navigateRegister(),
-                        child: const Text(
+                        child: Text(
                           LabelNames.REGISTER_BUTTON_REGISTER,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20,
                               decoration: TextDecoration.underline,
                               color: Colors.blue),
