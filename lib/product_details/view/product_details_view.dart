@@ -4,6 +4,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:stoktakip/inventory/viewmodel/product_model.dart';
 import 'package:stoktakip/product_details/model/message_response.dart';
 import 'package:stoktakip/product_details/model/product_model.dart';
+import 'package:stoktakip/product_details/model/unauthorized_response.dart';
 import 'package:stoktakip/product_details/service/product_details_service.dart';
 import 'package:stoktakip/shared/configuration/dio_options.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
@@ -189,7 +190,9 @@ class _ProductView extends State<ProductView> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  scanProductBarcode();
+                },
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(40)),
                 child: Text(LabelNames.PRODUCT_VIEW_SCAN)),
@@ -228,30 +231,49 @@ class _ProductView extends State<ProductView> {
   void deleteProduct() async {
     final FormState? form = _formKey.currentState;
     form!.save();
-
-    final response = await productDetailsService
-        .deleteProductByBarcode(productModel.productBarcode ?? '');
-    if (response != null) {
-      if (response is MessageResponse) {
-        if (response.message!.toLowerCase().contains("not found")) {
-          showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_NOT_FOUND);
+    if (_productBarcodeController!.text.isNotEmpty) {
+      final response = await productDetailsService
+          .deleteProductByBarcode(productModel.productBarcode ?? '');
+      if (response != null) {
+        if (response is MessageResponse) {
+          if (response.message!.toLowerCase().contains("not found")) {
+            showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_NOT_FOUND);
+          }
+        } else if (response is ProductModel) {
+          showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_PRODUCT_DELETED);
+          clearForm();
+          widget.gotoInventoryPage();
         }
-      } else if (response is ProductModel) {
-        showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_PRODUCT_DELETED);
-        clearForm();
-        widget.gotoInventoryPage();
+      } else {
+        showMessage(LabelNames.SERVICE_ERROR);
       }
+      clearForm();
     } else {
-      showMessage(LabelNames.SERVICE_ERROR);
+      showMessage("!!!");
     }
-    clearForm();
   }
 
   void scanProductBarcode() async {
+    clearForm();
     String result = await FlutterBarcodeScanner.scanBarcode(
         "#ff6666", "Cancel", true, ScanMode.DEFAULT);
 
-    setState(() {});
+    final response = await productDetailsService.getproductByBarcode(result);
+    if (response != null) {
+      if (response is ProductModel) {
+        _productBarcodeController!.text = response.productBarcode ?? "";
+        _productNameController!.text = response.productName ?? "";
+        _numOfProductController!.text = (response.numOfProducts ?? 0) as String;
+        _productPriceController!.text =
+            (response.productPrice ?? 0.0) as String;
+      } else if (response is UnauthorizedResponse) {
+        showMessage(LabelNames.UNAUTHORIZED_REQUEST);
+      } else if (response is MessageResponse) {
+        clearForm();
+        showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_NOT_FOUND);
+        _productBarcodeController!.text = result;
+      }
+    }
   }
 
   void clearForm() {

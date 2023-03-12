@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+// TODO -> refactor for languages settings enum or something else search for it
 class LabelNames {
   static String BOTTOM_NAVBAR_ITEM_1 = "Stok";
   static String BOTTOM_NAVBAR_ITEM_2 = "Satış";
@@ -11,7 +13,7 @@ class LabelNames {
   ];
 
   static String SERVICE_ERROR = "HATA";
-
+  static String UNAUTHORIZED_REQUEST = "Oturum süresi doldu";
   static String LOGOUT = "Çıkış";
   static String WELCOME_SNACK = "Hoşgeldiniz";
   static String FAIL_LOGIN = "Giriş başarısız";
@@ -67,5 +69,4 @@ class LabelNames {
   static String REGISTER_VIEW_TITLE = "Kayıt ol";
   static String REGISTER_BUTTON_REGISTER = "Kayıt ol";
   static String REGISTER_HAVE_ACCOUNT_TEXT = "Hesabınız yok mu?";
-  // TODO -> refactor for languages settings enum or something else search for it
 }
