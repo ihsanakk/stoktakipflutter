@@ -1,4 +1,6 @@
-class ProductModel {
+import 'abstract_response.dart';
+
+class ProductModel extends AbstractResponse {
   String? productName;
   String? productCategory;
   int? numOfProducts;

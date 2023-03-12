@@ -153,6 +153,11 @@ class _HomeView extends State<HomeView> with CacheManager {
       case 2:
         return ProductView(
           product: _product,
+          gotoInventoryPage: () {
+            setState(() {
+              _currentIndex = 0;
+            });
+          },
         );
       case 3:
         return const Bar();

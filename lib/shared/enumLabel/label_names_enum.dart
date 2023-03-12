@@ -9,6 +9,9 @@ class LabelNames {
     "Ürün Detay",
     "Geçmiş"
   ];
+
+  static const String SERVICE_ERROR = "HATA";
+
   static const String LOGOUT = "Çıkış";
   static const String WELCOME_SNACK = "Hoşgeldiniz";
   static const String FAIL_LOGIN = "Giriş başarısız";
@@ -31,6 +34,12 @@ class LabelNames {
   static const String PRODUCT_DETAILS_PRODUCT_DESCRIPTION = "Açıklama";
   static const String PRODUCT_DETAILS_PRODUCT_PRICE = "Fiyat";
   static const String PRODUCT_DETAILS_PRODUCT_QUANTITY = "Adet";
+  static const String PRODUCT_DETAILS_MESSAGE_PRODUCT_DELETED = "Ürün silindi";
+  static const String PRODUCT_DETAILS_MESSAGE_PRODUCT_SAVED = "Ürün kaydedildi";
+  static const String PRODUCT_DETAILS_MESSAGE_INVALID_PRODUCT_NAME =
+      "Ürün adı en az 3 haneli olmalıdır";
+  static const String PRODUCT_DETAILS_MESSAGE_INVALID_PRODUCT_BARCODE =
+      "Ürün barkodu en az 3 haneli olmalıdır";
 
   static const String LOGIN_VIEW_MESSAGE_BAD_CREDENTIALS =
       "Şifre veya kullanıcı adı yanlış.";
