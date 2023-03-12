@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../inventory/viewmodel/product_model.dart';
+
 class CacheManager {
   Future<bool> saveToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -27,6 +29,29 @@ class CacheManager {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove(CacheManagerKey.token.toString());
   }
+
+  void saveProductsToCache(List<Product> productList) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String encodedData = Product.encode(productList);
+    prefs.setString(CacheManagerKey.products.toString(), encodedData);
+  }
+
+  Future<List<Product>?> getProductsFromCache() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString(CacheManagerKey.products.toString()) == null) {
+      return null;
+    } else {
+      String? productsString =
+          prefs.getString(CacheManagerKey.products.toString());
+      final List<Product> productList = Product.decode(productsString!);
+      return productList;
+    }
+  }
+
+  Future<void> clearProductsFromCache() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(CacheManagerKey.products.toString());
+  }
 }
 
-enum CacheManagerKey { token, mail }
+enum CacheManagerKey { token, mail, products }

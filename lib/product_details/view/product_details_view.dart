@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:stoktakip/inventory/viewmodel/product_model.dart';
+import 'package:stoktakip/core/cache_manager.dart';
 import 'package:stoktakip/product_details/model/message_response.dart';
-import 'package:stoktakip/product_details/model/product_model.dart';
 import 'package:stoktakip/product_details/model/unauthorized_response.dart';
 import 'package:stoktakip/product_details/service/product_details_service.dart';
 import 'package:stoktakip/shared/configuration/dio_options.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
+
+import '../../inventory/viewmodel/product_model.dart';
+import '../model/product_model.dart';
 
 class ProductView extends StatefulWidget {
   final Product? product;
@@ -19,7 +21,7 @@ class ProductView extends StatefulWidget {
   State<StatefulWidget> createState() => _ProductView();
 }
 
-class _ProductView extends State<ProductView> {
+class _ProductView extends State<ProductView> with CacheManager {
   Product productPlaceholder = Product(
       imageUrl: '',
       numOfProducts: 0,
@@ -202,6 +204,22 @@ class _ProductView extends State<ProductView> {
     );
   }
 
+  deleteFromCache(String barcode) async {
+    final productList = await getProductsFromCache();
+    productList!.removeWhere((element) => element.productBarcode == barcode);
+    saveProductsToCache(productList);
+  }
+
+  saveToCache(ProductModel productModel) async {
+    final productList = await getProductsFromCache();
+    productList!.add(Product(
+        productBarcode: productModel.productBarcode,
+        productName: productModel.productName,
+        productPrice: productModel.productPrice,
+        numOfProducts: productModel.numOfProducts));
+    saveProductsToCache(productList);
+  }
+
   void showMessage(String? message) {
     if (message != '') {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -219,6 +237,7 @@ class _ProductView extends State<ProductView> {
       final response = await productDetailsService.saveProduct(productModel);
       if (response != null) {
         showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_PRODUCT_SAVED);
+        saveToCache(productModel);
         widget.gotoInventoryPage();
       } else {
         showMessage(LabelNames.SERVICE_ERROR);
@@ -241,6 +260,7 @@ class _ProductView extends State<ProductView> {
           }
         } else if (response is ProductModel) {
           showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_PRODUCT_DELETED);
+          deleteFromCache(productModel.productBarcode ?? '');
           clearForm();
           widget.gotoInventoryPage();
         }

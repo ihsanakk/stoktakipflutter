@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stoktakip/product_details/model/product_model.dart';
-
+import 'package:stoktakip/core/cache_manager.dart';
 import '../../shared/configuration/dio_options.dart';
 import '../../shared/enumLabel/label_names_enum.dart';
 import '../../shared/views/product_card.dart';
@@ -16,26 +15,37 @@ class InventoryView extends StatefulWidget {
   State<StatefulWidget> createState() => _InventoryState();
 }
 
-class _InventoryState extends State<InventoryView> {
+class _InventoryState extends State<InventoryView> with CacheManager {
   final List<Product> products = [];
 
   List<Product> foundproducts = [];
   late final InventoryService inventoryService;
+
   @override
   void initState() {
     super.initState();
     inventoryService = InventoryService(CustomDio.getDio());
-    getUserProducts();
+    // getUserProducts();
+    loadFromCache();
     foundproducts = products;
   }
 
-  getUserProducts() async {
+  void loadFromCache() async {
+    final productList = await getProductsFromCache();
+    if (productList != null && productList.isNotEmpty) {
+      setState(() {
+        products.addAll(productList);
+      });
+    } else {
+      getUserProducts(); // else fetch from server and save to cache
+    }
+  }
+
+  void getUserProducts() async {
     var response = await inventoryService.getAllUserProducts();
-    print("Products fetching..");
     if (response != null) {
       setState(() {
         products.addAll(response.map((e) {
-          print(e.productBarcode);
           return Product.fromModel(e);
         }).toList());
       });

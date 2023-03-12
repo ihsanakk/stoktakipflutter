@@ -74,7 +74,7 @@ class ProductDetailsService extends IProductDetailsService with CacheManager {
       } else if (response.statusCode == 401) {
         return UnauthorizedResponse.fromJson(response.data);
       } else if (response.statusCode == 404) {
-        return MessageResponse.fromJson(response.data);
+        return UnauthorizedResponse.fromJson(response.data);
       } else {
         print(response.statusCode);
         print(response.requestOptions);
