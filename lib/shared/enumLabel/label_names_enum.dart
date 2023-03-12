@@ -40,7 +40,7 @@ class LabelNames {
       "Ürün adı en az 3 haneli olmalıdır";
   static String PRODUCT_DETAILS_MESSAGE_INVALID_PRODUCT_BARCODE =
       "Ürün barkodu en az 3 haneli olmalıdır";
-
+  static String PRODUCT_DETAILS_MESSAGE_NOT_FOUND = "Böyle bir ürün yok";
   static String LOGIN_VIEW_MESSAGE_BAD_CREDENTIALS =
       "Şifre veya kullanıcı adı yanlış.";
   static String LOGIN_VIEW_MESSAGE_INVALID_FORM =

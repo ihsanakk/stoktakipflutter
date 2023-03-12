@@ -153,21 +153,6 @@ class _ProductView extends State<ProductView> {
                       ),
                     ],
                   ),
-                  // const SizedBox(height: 16.0),
-                  // TextFormField(
-                  //   decoration: const InputDecoration(
-                  //     labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_CREATED_AT,
-                  //   ),
-                  //   initialValue:
-                  //       ((widget.product) ?? productPlaceholder).productName,
-                  // ),
-                  // TextFormField(
-                  //   decoration: const InputDecoration(
-                  //     labelText: LabelNames.PRODUCT_DETAILS_PRODUCT_DESCRIPTION,
-                  //   ),
-                  //   initialValue:
-                  //       ((widget.product) ?? productPlaceholder).productName,
-                  // ),
                 ],
               ),
             ),
@@ -248,7 +233,9 @@ class _ProductView extends State<ProductView> {
         .deleteProductByBarcode(productModel.productBarcode ?? '');
     if (response != null) {
       if (response is MessageResponse) {
-        showMessage(response.message);
+        if (response.message!.toLowerCase().contains("not found")) {
+          showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_NOT_FOUND);
+        }
       } else if (response is ProductModel) {
         showMessage(LabelNames.PRODUCT_DETAILS_MESSAGE_PRODUCT_DELETED);
         clearForm();
