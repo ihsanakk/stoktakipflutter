@@ -1,4 +1,6 @@
-class RegisterResponse {
+import 'asbtract_response.dart';
+
+class RegisterResponse extends AbstractResponse {
   String? message;
 
   RegisterResponse(this.message);

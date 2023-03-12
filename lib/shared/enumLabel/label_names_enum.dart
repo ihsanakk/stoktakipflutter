@@ -15,6 +15,7 @@ class LabelNames {
   static String LOGOUT = "Çıkış";
   static String WELCOME_SNACK = "Hoşgeldiniz";
   static String FAIL_LOGIN = "Giriş başarısız";
+  static String BAD_CREDENTIALS = "Kullanıcı adı veya şifre yanlış";
   static String FAIL_REGISTER = "Kayıt başarısız";
   static String SUCCESS_REGISTER = "Kayıt başarılı";
 

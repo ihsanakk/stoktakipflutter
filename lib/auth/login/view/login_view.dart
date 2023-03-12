@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:stoktakip/auth/login/model/login_response.dart';
+import 'package:stoktakip/auth/login/model/unauthorized_response.dart';
 import 'package:stoktakip/auth/register/view/register_view.dart';
 import 'package:stoktakip/core/cache_manager.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
@@ -50,10 +52,17 @@ class _LoginState extends State<LoginView> with CacheManager {
       final response = await loginService
           .login(LoginRequest(email: _email, password: _password));
       if (response != null) {
-        saveToken(response.token ?? '');
-        saveUserMail(response.email ?? '');
-        navigateHome();
-        showInSnackBar(LabelNames.WELCOME_SNACK);
+        if (response is LoginResponse) {
+          saveToken(response.token ?? '');
+          saveUserMail(response.email ?? '');
+          navigateHome();
+          showInSnackBar(LabelNames.WELCOME_SNACK);
+        } else if (response is UnauthorizedResponse) {
+          showInSnackBar(LabelNames.BAD_CREDENTIALS);
+          setState(() {
+            _isLoading = false;
+          });
+        }
       } else {
         showInSnackBar(LabelNames.FAIL_LOGIN);
         setState(() {

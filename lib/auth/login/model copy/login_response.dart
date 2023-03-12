@@ -1,6 +1,4 @@
-import 'asbtract_response.dart';
-
-class LoginResponse extends AbstractResponse {
+class LoginResponse {
   String? email;
   String? token;
 
