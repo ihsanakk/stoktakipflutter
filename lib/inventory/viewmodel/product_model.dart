@@ -1,3 +1,5 @@
+import '../model/product_model.dart';
+
 class Product {
   String? imageUrl;
   String? productName;
@@ -13,4 +15,11 @@ class Product {
       this.productCategory,
       this.numOfProducts,
       this.productPrice});
+
+  Product.fromModel(ProductModel productModel) {
+    productBarcode = productModel.productBarcode;
+    productName = productModel.productName;
+    numOfProducts = productModel.numOfProducts;
+    productPrice = productModel.productPrice;
+  }
 }

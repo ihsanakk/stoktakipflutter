@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:stoktakip/product_details/model/product_model.dart';
 
+import '../../shared/configuration/dio_options.dart';
 import '../../shared/enumLabel/label_names_enum.dart';
 import '../../shared/views/product_card.dart';
+import '../service/inventory_service.dart';
 import '../viewmodel/product_model.dart';
 
 class InventoryView extends StatefulWidget {
@@ -14,23 +17,29 @@ class InventoryView extends StatefulWidget {
 }
 
 class _InventoryState extends State<InventoryView> {
-  final List<Product> products = [
-    Product(productBarcode: "72582394273", productName: "Potato"),
-    Product(productBarcode: "3654641418410521469", productName: "Tomato"),
-    Product(productBarcode: "546415154", productName: "Onion"),
-    Product(productBarcode: "7841549784", productName: "Eggplant"),
-    Product(productBarcode: "65665118150", productName: "Terracota"),
-    Product(productBarcode: "365512154510", productName: "Something"),
-    Product(productBarcode: "9898989787415", productName: "Potato-X"),
-    Product(productBarcode: "8878787810214545", productName: "Potato-XL"),
-  ];
+  final List<Product> products = [];
 
   List<Product> foundproducts = [];
-
+  late final InventoryService inventoryService;
   @override
   void initState() {
     super.initState();
+    inventoryService = InventoryService(CustomDio.getDio());
+    getUserProducts();
     foundproducts = products;
+  }
+
+  getUserProducts() async {
+    var response = await inventoryService.getAllUserProducts();
+    print("Products fetching..");
+    if (response != null) {
+      setState(() {
+        products.addAll(response.map((e) {
+          print(e.productBarcode);
+          return Product.fromModel(e);
+        }).toList());
+      });
+    }
   }
 
   @override
