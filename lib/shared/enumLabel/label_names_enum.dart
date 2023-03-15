@@ -25,6 +25,8 @@ class LabelNames {
   static String SALES_MODE_CLEAN_BUTTON = "Temizle";
   static String SALES_MODE_SCAN_BUTTON = "Tara";
   static String SALES_MODE_REMOVE_PRODUCT_SCAFFOLD_MESSAGE = "Ürün çıkartıldı.";
+  static String SALES_MODE_YOU_NOT_HAVE_THE_PRODUCT =
+      "Ürün sizde mevcut değil.";
 
   static String PRODUCT_VIEW_DELETE = "Sil";
   static String PRODUCT_VIEW_UPDATE = "Güncelle";

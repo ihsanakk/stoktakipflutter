@@ -48,10 +48,32 @@ class CacheManager {
     }
   }
 
+  void saveCartToCache(List<Product> productList) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String encodedData = Product.encode(productList);
+    prefs.setString(CacheManagerKey.cart.toString(), encodedData);
+  }
+
+  Future<List<Product>?> getCartFromCache() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString(CacheManagerKey.cart.toString()) == null) {
+      return null;
+    } else {
+      String? productsString = prefs.getString(CacheManagerKey.cart.toString());
+      final List<Product> productList = Product.decode(productsString!);
+      return productList;
+    }
+  }
+
+  Future<void> clearCartFromCache() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(CacheManagerKey.cart.toString());
+  }
+
   Future<void> clearProductsFromCache() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove(CacheManagerKey.products.toString());
   }
 }
 
-enum CacheManagerKey { token, mail, products }
+enum CacheManagerKey { token, mail, products, cart }

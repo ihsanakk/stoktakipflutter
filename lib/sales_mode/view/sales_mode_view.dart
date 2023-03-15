@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:stoktakip/core/cache_manager.dart';
 import 'package:stoktakip/shared/enumLabel/label_names_enum.dart';
-
+import 'package:collection/collection.dart';
 import '../../inventory/viewmodel/product_model.dart';
 
 import '../../shared/views/product_card.dart';
@@ -14,37 +16,16 @@ class SalesMode extends StatefulWidget {
   State<StatefulWidget> createState() => _SalesMode();
 }
 
-class _SalesMode extends State<SalesMode> {
-  List<Product> productList = [
-    Product(
-        productBarcode: '12345678901',
-        imageUrl: 'https://via.placeholder.com/150',
-        numOfProducts: 23,
-        productCategory: 'it',
-        productName: 'Product Name 1',
-        productPrice: 1234.23),
-    Product(
-        productBarcode: '12345678901',
-        imageUrl: 'https://via.placeholder.com/150',
-        numOfProducts: 23,
-        productCategory: 'it',
-        productName: 'Product Name 2',
-        productPrice: 1234.23),
-    Product(
-        productBarcode: '12345678901',
-        imageUrl: 'https://via.placeholder.com/150',
-        numOfProducts: 23,
-        productCategory: 'it',
-        productName: 'Product Name 3',
-        productPrice: 1234.23),
-    Product(
-        productBarcode: '12345678901',
-        imageUrl: 'https://via.placeholder.com/150',
-        numOfProducts: 23,
-        productCategory: 'it',
-        productName: 'Product Name 4',
-        productPrice: 1234.23),
-  ];
+class _SalesMode extends State<SalesMode> with CacheManager {
+  final List<Product> cart = [];
+  List<Product>? cacheProducts;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProducts();
+    _loadCartFormCache();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +33,13 @@ class _SalesMode extends State<SalesMode> {
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: productList.length,
+            itemCount: cart.length,
             itemBuilder: (BuildContext context, int index) {
               return Dismissible(
                   key: UniqueKey(),
                   direction: DismissDirection.horizontal,
                   onDismissed: (direction) {
-                    setState(() {
-                      // products.removeAt(index);
-                    });
+                    _removeProductFromCart(index);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(LabelNames
@@ -77,10 +56,10 @@ class _SalesMode extends State<SalesMode> {
                   ),
                   child: GestureDetector(
                     onTap: () {
-                      widget.gotoProductPage(productList[index]);
+                      widget.gotoProductPage(cart[index]);
                     },
-                    child: ProductCardView(
-                        isSaleMode: true, product: productList[index]),
+                    child:
+                        ProductCardView(isSaleMode: true, product: cart[index]),
                   ));
             },
           ),
@@ -112,38 +91,21 @@ class _SalesMode extends State<SalesMode> {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () async {
-                    // clear the products
-
-                    // save from the state
+                  onPressed: () {
+                    _clearCart();
+                    clearCartFromCache();
                   },
                   color: Colors.redAccent,
                   iconSize: 34,
                   icon: const Icon(Icons.delete_forever_rounded),
-                  // style: ButtonStyle(
-                  //   backgroundColor:
-                  //       MaterialStateProperty.all(Colors.redAccent),
-                  // ),
-                  // label: const Text(LabelNames.SALES_MODE_CLEAN_BUTTON)
                 ),
                 const Spacer(),
                 IconButton(
-                  onPressed: () async {
-                    // scan
-
-                    // save current state to avoid loss current state when page is changed
-                    // String barcodeScanRes =
-                    //     await FlutterBarcodeScanner.scanBarcode(
-                    //         "#ff6666", "Cancel", true, ScanMode.DEFAULT);
-
-                    // addToCart(barcodeScanRes);
+                  onPressed: () {
+                    _addToCart();
                   },
                   iconSize: 34,
                   icon: const Icon(Icons.barcode_reader),
-                  // style: ButtonStyle(
-                  //   backgroundColor: MaterialStateProperty.all(Colors.white10),
-                  // ),
-                  // label: const Text(LabelNames.SALES_MODE_SCAN_BUTTON)
                 ),
               ],
             ))
@@ -151,9 +113,62 @@ class _SalesMode extends State<SalesMode> {
     );
   }
 
-  // void addToCart(String? newProduct) {
-  //   setState(() {
-  //     products.add(newProduct!);
-  //   });
-  // }
+  void showMessage(String? message) {
+    if (message != '') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message!),
+        duration: const Duration(seconds: 2),
+      ));
+    }
+  }
+
+  _removeProductFromCart(index) {
+    setState(() {
+      cart.removeAt(index);
+      saveCartToCache(cart);
+    });
+  }
+
+  _loadCartFormCache() async {
+    var cacheCart = await getCartFromCache();
+    if (cacheCart != null && cacheCart.isNotEmpty) {
+      setState(() {
+        cart.addAll(cacheCart);
+      });
+    }
+  }
+
+  _loadProducts() async {
+    final products = await getProductsFromCache();
+    if (products != null && products.isNotEmpty) {
+      cacheProducts = products;
+    } else {
+      showMessage(LabelNames.SERVICE_ERROR);
+    }
+  }
+
+  _addToCart() async {
+    var result = await FlutterBarcodeScanner.scanBarcode(
+        "#ff6666", "Cancel", true, ScanMode.DEFAULT);
+    try {
+      Product? foundProduct = cacheProducts
+          ?.firstWhereOrNull((element) => element.productBarcode == result);
+      if (foundProduct != null) {
+        setState(() {
+          cart.add(foundProduct);
+          saveCartToCache(cart);
+        });
+      } else {
+        showMessage(LabelNames.SALES_MODE_YOU_NOT_HAVE_THE_PRODUCT);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  _clearCart() {
+    setState(() {
+      cart.clear();
+    });
+  }
 }
