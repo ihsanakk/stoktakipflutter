@@ -57,6 +57,7 @@ class _LoginState extends State<LoginView> with CacheManager {
           saveUserMail(response.email ?? '');
           navigateHome();
           showInSnackBar(LabelNames.WELCOME_SNACK);
+          _setLoginDate(); // set login date
         } else if (response is UnauthorizedResponse) {
           showInSnackBar(LabelNames.BAD_CREDENTIALS);
           setState(() {
@@ -70,6 +71,11 @@ class _LoginState extends State<LoginView> with CacheManager {
         });
       }
     }
+  }
+
+  _setLoginDate() {
+    int date = DateTime.now().millisecondsSinceEpoch;
+    setLoginDate(date);
   }
 
   void navigateHome() {

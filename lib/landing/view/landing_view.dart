@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stoktakip/core/cache_manager.dart';
-import 'package:stoktakip/landing/service/landing_service.dart';
-import 'package:stoktakip/shared/configuration/dio_options.dart';
+// import 'package:stoktakip/landing/service/landing_service.dart';
+// import 'package:stoktakip/shared/configuration/dio_options.dart';
 
 class LandingView extends StatefulWidget {
   const LandingView({super.key});
@@ -11,12 +11,12 @@ class LandingView extends StatefulWidget {
 }
 
 class _LandingState extends State<LandingView> with CacheManager {
-  late final LandingService landingService;
+  // late final LandingService landingService;
 
   @override
   void initState() {
     super.initState();
-    landingService = LandingService(CustomDio.getDio());
+    // landingService = LandingService(CustomDio.getDio());
     loadToken();
   }
 
@@ -24,15 +24,28 @@ class _LandingState extends State<LandingView> with CacheManager {
     final token = await getToken();
 
     if (token != null) {
-      validateToken(token);
+      validateLogin(token);
     } else {
       navigateLogin();
     }
   }
 
-  validateToken(String token) async {
-    final response = await landingService.validateToken(token);
-    if (response != null) {
+  _isLoginExpired() async {
+    int? loginTimeStamp = await getLoginDate();
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(loginTimeStamp!);
+    Duration duration = DateTime.now().difference(dateTime);
+    int minutes = duration.inMinutes;
+    // 24*60 = 1440 mins => token expires
+    int expiredAt = 1440 - 2; // -2 minutes margin for request timeouts
+    if (minutes > expiredAt) {
+      return true;
+    }
+    return false;
+  }
+
+  validateLogin(String token) async {
+    var result = await _isLoginExpired();
+    if (!result) {
       navigateHome();
     } else {
       navigateLogin();

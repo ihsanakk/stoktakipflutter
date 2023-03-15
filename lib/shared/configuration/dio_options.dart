@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class CustomDio {
   const CustomDio._();
 
-  static const String baseUrl = "http://192.168.1.107:8080";
+  static const String baseUrl = "http://192.168.1.108:8080";
   static final Dio _dio = Dio(BaseOptions(
     baseUrl: baseUrl,
     followRedirects: false,

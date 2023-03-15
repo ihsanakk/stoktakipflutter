@@ -20,6 +20,16 @@ class CacheManager {
     return prefs.getString(CacheManagerKey.token.toString());
   }
 
+  void setLoginDate(int timestamp) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(CacheManagerKey.logindate.toString(), timestamp);
+  }
+
+  Future<int?> getLoginDate() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(CacheManagerKey.logindate.toString());
+  }
+
   Future<String?> getMail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(CacheManagerKey.mail.toString());
@@ -76,4 +86,10 @@ class CacheManager {
   }
 }
 
-enum CacheManagerKey { token, mail, products, cart }
+enum CacheManagerKey {
+  token,
+  mail,
+  products,
+  cart,
+  logindate,
+}
