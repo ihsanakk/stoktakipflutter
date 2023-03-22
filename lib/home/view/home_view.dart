@@ -51,6 +51,29 @@ class _HomeView extends State<HomeView> with CacheManager {
     loadUserMail();
   }
 
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(LabelNames.HOME_POP_ARE_YOU_SURE),
+            content: Text(LabelNames.HOME_POP_WANT_EXIT_APP),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.of(context).pop(false), //<-- SEE HERE
+                child: Text(LabelNames.HOME_POP_NO),
+              ),
+              TextButton(
+                onPressed: () =>
+                    Navigator.of(context).pop(true), // <-- SEE HERE
+                child: Text(LabelNames.HOME_POP_YES),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +121,7 @@ class _HomeView extends State<HomeView> with CacheManager {
           ],
         ),
       ),
-      body: body(),
+      body: WillPopScope(onWillPop: _onWillPop, child: body()),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(

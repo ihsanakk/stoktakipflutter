@@ -12,6 +12,11 @@ class LabelNames {
     "Geçmiş"
   ];
 
+  static String HOME_POP_ARE_YOU_SURE = "Emin misiniz?";
+  static String HOME_POP_WANT_EXIT_APP = "Uygulamadan çıkmak istiyor musunuz?";
+  static String HOME_POP_YES = "Evet";
+  static String HOME_POP_NO = "Hayır";
+
   static String SERVICE_ERROR = "HATA";
   static String UNAUTHORIZED_REQUEST = "Oturum süresi doldu";
   static String LOGOUT = "Çıkış";
