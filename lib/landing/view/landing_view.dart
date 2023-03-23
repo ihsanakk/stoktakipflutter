@@ -22,17 +22,16 @@ class _LandingState extends State<LandingView> with CacheManager {
 
   loadToken() async {
     final token = await getToken();
-
     if (token != null) {
-      validateLogin(token);
+      validateLogin();
     } else {
       navigateLogin();
     }
   }
 
   _isLoginExpired() async {
-    int? loginTimeStamp = await getLoginDate();
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(loginTimeStamp!);
+    int loginTimeStamp = await getLoginDate() ?? 0;
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(loginTimeStamp);
     Duration duration = DateTime.now().difference(dateTime);
     int minutes = duration.inMinutes;
     // 24*60 = 1440 mins => token expires
@@ -43,7 +42,7 @@ class _LandingState extends State<LandingView> with CacheManager {
     return false;
   }
 
-  validateLogin(String token) async {
+  validateLogin() async {
     var result = await _isLoginExpired();
     if (!result) {
       navigateHome();

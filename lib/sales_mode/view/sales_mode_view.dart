@@ -140,8 +140,6 @@ class _SalesMode extends State<SalesMode> with CacheManager {
     final products = await getProductsFromCache();
     if (products != null && products.isNotEmpty) {
       cacheProducts = products;
-    } else {
-      showMessage(LabelNames.SERVICE_ERROR);
     }
   }
 
