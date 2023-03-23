@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stoktakip/core/cache_manager.dart';
 import 'package:stoktakip/inventory/view/inventory_view.dart';
 import 'package:stoktakip/sales_mode/view/sales_mode_view.dart';
+import 'package:stoktakip/shared/model/model_theme.dart';
 
 import '../../inventory/viewmodel/product_model.dart';
 import '../../other/view/bar_view.dart';
@@ -76,74 +78,90 @@ class _HomeView extends State<HomeView> with CacheManager {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(LabelNames.INVENTORY_VIEW_APPBAR_TITLES[_currentIndex]),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                image: DecorationImage(
-                  image: NetworkImage(
-                    "https://c4.wallpaperflare.com/wallpaper/992/545/78/abstract-shapes-hd-wallpaper-preview.jpg",
+    return Consumer<ModelTheme>(
+        builder: (context, ModelTheme themeNotifier, child) {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(LabelNames.INVENTORY_VIEW_APPBAR_TITLES[_currentIndex]),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      "https://c4.wallpaperflare.com/wallpaper/992/545/78/abstract-shapes-hd-wallpaper-preview.jpg",
+                    ),
+                    fit: BoxFit.fill,
                   ),
-                  fit: BoxFit.fill,
+                ),
+                child: Stack(
+                  children: const [
+                    Positioned(
+                      bottom: 8.0,
+                      left: 4.0,
+                      child: Text(
+                        "Stok Takip",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              child: Stack(
-                children: const [
-                  Positioned(
-                    bottom: 8.0,
-                    left: 4.0,
-                    child: Text(
-                      "Stok Takip",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                ],
+              ListTile(
+                leading: const Icon(Icons.verified_user_rounded),
+                title: Text(_userMail ?? ''),
               ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.verified_user_rounded),
-              title: Text(_userMail ?? ''),
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: Text(LabelNames.LOGOUT),
-              onTap: () {
-                _handleLogout();
-              },
-            ),
-          ],
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: Text(LabelNames.LOGOUT),
+                onTap: () {
+                  _handleLogout();
+                },
+              ),
+              ListTile(
+                leading: Icon(themeNotifier.isDark
+                    ? Icons.nightlight_round
+                    : Icons.wb_sunny),
+                title: Text(LabelNames.CHANGE_THEME),
+                onTap: () {
+                  themeNotifier.isDark
+                      ? themeNotifier.isDark = false
+                      : themeNotifier.isDark = true;
+                },
+              )
+            ],
+          ),
         ),
-      ),
-      body: WillPopScope(onWillPop: _onWillPop, child: body()),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.inventory_rounded),
-              label: LabelNames.BOTTOM_NAVBAR_ITEM_1),
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.shopping_cart_rounded),
-              label: LabelNames.BOTTOM_NAVBAR_ITEM_2),
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.qr_code_2_rounded),
-              label: LabelNames.BOTTOM_NAVBAR_ITEM_3),
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.history_rounded),
-              label: LabelNames.BOTTOM_NAVBAR_ITEM_4),
-        ],
-        onTap: onTabTapped,
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.orangeAccent,
-        iconSize: 32.0,
-        currentIndex: _currentIndex,
-      ),
-    );
+        body: WillPopScope(onWillPop: _onWillPop, child: body()),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black26,
+          items: [
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.inventory_rounded),
+                label: LabelNames.BOTTOM_NAVBAR_ITEM_1),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.shopping_cart_rounded),
+                label: LabelNames.BOTTOM_NAVBAR_ITEM_2),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.qr_code_2_rounded),
+                label: LabelNames.BOTTOM_NAVBAR_ITEM_3),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.history_rounded),
+                label: LabelNames.BOTTOM_NAVBAR_ITEM_4),
+          ],
+          onTap: onTabTapped,
+          unselectedItemColor: Colors.white,
+          selectedItemColor: Colors.orangeAccent,
+          iconSize: 32.0,
+          currentIndex: _currentIndex,
+        ),
+      );
+    });
   }
 
   void onTabTapped(int index) {

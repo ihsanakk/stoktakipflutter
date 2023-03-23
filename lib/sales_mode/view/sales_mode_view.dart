@@ -68,9 +68,8 @@ class _SalesMode extends State<SalesMode> with CacheManager {
           height: 20,
         ),
         Container(
+          color: Colors.black26,
           height: 70,
-          decoration:
-              BoxDecoration(color: Colors.white24, border: Border.all()),
           padding: const EdgeInsets.only(left: 20),
           child: Row(
             children: [
@@ -85,8 +84,7 @@ class _SalesMode extends State<SalesMode> with CacheManager {
           ),
         ),
         Container(
-            decoration:
-                BoxDecoration(color: Colors.white24, border: Border.all()),
+            color: Colors.black26,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Row(
               children: [

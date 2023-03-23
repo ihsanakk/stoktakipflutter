@@ -84,12 +84,16 @@ class CacheManager {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove(CacheManagerKey.products.toString());
   }
+
+  Future<void> setTheme(bool value) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool(CacheManagerKey.theme.toString(), value);
+  }
+
+  Future<bool> getTheme() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getBool(CacheManagerKey.theme.toString()) ?? false;
+  }
 }
 
-enum CacheManagerKey {
-  token,
-  mail,
-  products,
-  cart,
-  logindate,
-}
+enum CacheManagerKey { token, mail, products, cart, logindate, theme }

@@ -16,7 +16,7 @@ class LabelNames {
   static String HOME_POP_WANT_EXIT_APP = "Uygulamadan çıkmak istiyor musunuz?";
   static String HOME_POP_YES = "Evet";
   static String HOME_POP_NO = "Hayır";
-
+  static String CHANGE_THEME = "Temayı değiştir";
   static String SERVICE_ERROR = "HATA";
   static String UNAUTHORIZED_REQUEST = "Oturum süresi doldu";
   static String LOGOUT = "Çıkış";
